@@ -20,4 +20,8 @@ class Genre extends Model
     protected $casts = [
         'id' => 'string'
     ];
+
+    // Desabilita o id incremental
+    public $incrementing = false;
+    
 }

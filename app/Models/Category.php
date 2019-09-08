@@ -21,4 +21,7 @@ class Category extends Model
         'id' => 'string'
     ];
 
+    // Desabilita o id incremental
+    public $incrementing = false;
+
 }
