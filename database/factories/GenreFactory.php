@@ -8,6 +8,6 @@ use Faker\Generator as Faker;
 $factory->define(Genre::class, function (Faker $faker) {
     return [
         'name' => $faker->colorName,
-        'is_active' => rand(1, 10) % 2 == 0 ? 1 : null
+        'is_active' => rand(0, 1)
     ];
 });
