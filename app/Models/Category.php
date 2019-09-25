@@ -18,7 +18,8 @@ class Category extends Model
 
     // Especifica o tipo do campo para o Uuid
     protected $casts = [
-        'id' => 'string'
+        'id' => 'string',
+        'is_active' => 'boolean'
     ];
 
     // Desabilita o id incremental
