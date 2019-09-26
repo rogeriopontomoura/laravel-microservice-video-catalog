@@ -7,6 +7,7 @@ use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use App\Models\Category;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
+use Ramsey\Uuid\Uuid;
 
 class CategoryTest extends TestCase
 {
@@ -44,7 +45,6 @@ class CategoryTest extends TestCase
     }
 
     // Testa a criação de categorias
-
     public function testCreate()
     {
         // Cria a categoria com nome test1
@@ -89,6 +89,57 @@ class CategoryTest extends TestCase
         ]);
 
         $this->assertTrue($category->is_active);
+
+        // Testa o UUID da categoria
+        
+        // Gera uma categoria
+        $category = factory(Category::class, 1)->create()->first();
+
+        // Pega o UUID gerado
+        $id = $category["id"];
+
+        // Verifica se o UUID é valido
+        $this->assertTrue(Uuid::isValid($id));        
+
+    }
+
+    // Testa a atualização de categorias
+    public function testUpdate()
+    {
+        // Cria uma categoria usando o factory
+        $category = factory(Category::class, 1)->create([
+            // Sobscreve o description do factory
+            'description' => 'test_description',
+        ])->first();
+
+        // Cria um array com os campos a modificar
+        $data = [
+            'name' => 'test_name_updated',
+            'description' => 'test_description',
+            'is_active' => true
+        ];
+
+        // Modifica
+        $category->update($data);
+
+        // Percorre os registros e compara os resultados
+        foreach ($data as $key => $value){
+            $this->assertEquals($value, $category->{$key});
+        }
+
+    }
+
+    // Testa a exclusão de categorias
+    public function testDelete()
+    {
+        // Cria a categoria e joga na váriavel
+        $category = factory(Category::class, 1)->create()->first();
+
+        // Deleta a categoria criada e joga o resultado na variável
+        $delete = $category->delete();
+
+        // Verifica o resultado da exclusão
+        $this->assertTrue($delete);
     }
 
 }
