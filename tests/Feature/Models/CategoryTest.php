@@ -140,6 +140,12 @@ class CategoryTest extends TestCase
 
         // Verifica o resultado da exclusão
         $this->assertTrue($delete);
+
+        // Teste de restore
+        $restore = $category->restore();
+
+        // Verifica o resultado do restore
+        $this->assertNotNull($restore);
     }
 
 }
